@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 const url = 'https://www.course-api.com/react-tours-project'
 
 type Tour = {
@@ -9,7 +11,7 @@ type Tour = {
 }
 
 const fetchTours = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 3000))
+  // await new Promise((resolve) => setTimeout(resolve, 3000))
   const response = await fetch(url)
   const data: Tour[] = await response.json()
   return data
@@ -22,11 +24,11 @@ async function ToursPage() {
     <div>
       {data.map((da) => {
         return (
-          <div>
-            <h1 className="text-3xl mb-4">{da.name}</h1>
+          <Link key={da.id} href={`/tours/${da.id}`}>
+            <h1 className="text-3xl mb-4 hover:text-blue-500">{da.name}</h1>
             <img src={da.image} />
             <p>{da.info}</p>
-          </div>
+          </Link>
         )
       })}
     </div>
