@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 const url = 'https://www.course-api.com/react-tours-project'
 
@@ -21,13 +22,21 @@ async function ToursPage() {
   const data = await fetchTours()
 
   return (
-    <div>
+    <div className="grid md:grid-cols-2 gap-8">
       {data.map((da) => {
         return (
           <Link key={da.id} href={`/tours/${da.id}`}>
-            <h1 className="text-3xl mb-4 hover:text-blue-500">{da.name}</h1>
-            <img src={da.image} />
-            <p>{da.info}</p>
+            <div className="relative h-48 mb-2">
+              <Image
+                src={da.image}
+                alt={da.name}
+                fill
+                sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw 30vw"
+                priority
+                className="object-cover rounded"
+              />
+            </div>
+            <h2>{da.name}</h2>
           </Link>
         )
       })}
