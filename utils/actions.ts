@@ -12,7 +12,7 @@ type User = {
 
 export const createUser = async (prevState: any, formData: FormData) => {
   'use server'
-  await new Promise((resolve) => setTimeout(resolve, 3000))
+  // await new Promise((resolve) => setTimeout(resolve, 3000))
   const firstName = formData.get('firstName') as string
   const lastName = formData.get('lastName') as string
   const newUser: User = { firstName, lastName, id: Date.now().toString() }
@@ -35,7 +35,7 @@ export const fetchUsers = async (): Promise<User[]> => {
   return users
 }
 
-const saveUser = async (user: User) => {
+export const saveUser = async (user: User) => {
   const users = await fetchUsers()
   users.push(user)
   await writeFile('users.json', JSON.stringify(users))
